@@ -1,0 +1,6 @@
+http://222.75.166.5/AD_login.action
+
+http://ccin.nxca.gov.cn/webnews/webnews_news.action
+
+http://agbm.nxca.gov.cn/CheckMemberLogon.shtml
+
