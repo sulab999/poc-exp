@@ -1,0 +1,19 @@
+name: spring-framework-rce-poc
+set:
+  rand: randomInt(200000000, 210000000)
+rules:
+  - method: GET
+    path: "/?class.module.classLoader.DefaultAssertionStatus=true"
+    expression: |
+      response.status == 200
+  - method: GET
+    path: "/?class.module.classLoader.DefaultAssertionStatus=x"
+    expression: |
+      response.status == 400
+detail:
+  author: sulab
+  version: Spring Framework 5.3.X < 5.3.18;Spring Framework 5.2.X < 5.2.20
+  links:
+    - https://mp.weixin.qq.com/s/iGxVPyS-TMyt0lWgq_LQ_g
+  description: Spring Framework存在远程代码执行漏洞，在 JDK 9 及以上版本环境下，远程攻击者可利用该漏洞写入恶意代码导致远程代码执行漏洞。
+  product: Spring Framework

